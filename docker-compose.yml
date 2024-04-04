@@ -1,0 +1,16 @@
+version: "1.0"
+services:
+    idea-sharer-db:
+        image: postgres
+        restart: always
+        container_name: idea-sharer-db
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: password
+            PGDATA: /data/postgress
+        volumes:
+            - postgres:/data/postgress
+
+volumes:
+    postgres:
