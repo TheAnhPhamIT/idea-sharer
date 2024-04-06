@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { createRoomAction } from "@/app/create-room/actions";
+import { createRoomAction } from "@/app/(main)/(routes)/create-room/actions";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({

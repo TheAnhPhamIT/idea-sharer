@@ -1,16 +1,28 @@
 // import * as React from "react";
 // import { twMerge } from "tailwind-merge";
 
+import { Button } from "@/components/ui/button";
 import { db } from "@/db";
+import Link from "next/link";
+import { RoomCard } from "../_components/room-card";
+import { getRooms } from "@/data-access/rooms";
 
-export default async function Home() {
-    const rooms = await db.query.room.findMany();
+export default async function HomePage() {
+    const rooms = await getRooms();
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            {rooms.map((room) => (
-                <div key={room.name}>{room.name}</div>
-            ))}
+        <main className="min-h-screen p-16 mx-auto">
+            <div className="flex gap-3 justify-between">
+                <h1 className="text-xl md:text-4xl">Find Rooms</h1>
+                <Button asChild>
+                    <Link href="/create-room">Create Room</Link>
+                </Button>
+            </div>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {rooms.map((room) => (
+                    <RoomCard key={room.id} room={room} />
+                ))}
+            </div>
         </main>
     );
 }
