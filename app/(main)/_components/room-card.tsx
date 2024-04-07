@@ -1,3 +1,4 @@
+import { TagsList } from "@/components/tags-list";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -25,13 +26,16 @@ export function RoomCard({ room }: { room: Room }) {
                     <Link
                         href={room.githubRepo}
                         target="_blank"
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 text-sm"
                         rel="noopener noreferrer"
                     >
-                        <GithubIcon />
+                        <GithubIcon width={20} height={20} />
                         Github Project
                     </Link>
                 )}
+                <div className="flex flex-wrap gap-3 mt-4">
+                    <TagsList tags={room.tags} />
+                </div>
             </CardContent>
             <CardFooter>
                 <Button asChild>
