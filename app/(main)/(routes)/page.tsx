@@ -3,9 +3,9 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { RoomCard } from "../_components/room-card";
+import { RoomCard } from "@/components/room-card";
 import { getRooms } from "@/data-access/rooms";
-import { SearchBar } from "../_components/search-bar";
+import { SearchBar } from "@/components/search-bar";
 
 export default async function HomePage({
     searchParams,

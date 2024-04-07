@@ -6,9 +6,9 @@ export default function MainLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="container mx-auto">
+        <>
             <Header />
-            {children}
-        </div>
+            <div className="container mx-auto">{children}</div>
+        </>
     );
 }

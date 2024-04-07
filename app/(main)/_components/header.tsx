@@ -11,8 +11,8 @@ import { LogInIcon } from "lucide-react";
 export function Header() {
     const session = useSession();
     return (
-        <header className="container mx-auto bg-gray-100 dark:bg-gray-900 py-4">
-            <div className="flex justify-between items-center">
+        <header className="bg-gray-100 dark:bg-gray-900 py-4">
+            <div className="flex justify-between items-center container mx-auto">
                 <Link href="/" className="flex gap-2 items-center text-xl">
                     <Image
                         src="/icon.png"
@@ -23,9 +23,23 @@ export function Header() {
                     />
                     <span className="hidden md:block">Idea Sharer</span>
                 </Link>
+
                 <div className="flex gap-2 md:gap-4 items-center">
                     {session.data ? (
-                        <AccountDropdown />
+                        <>
+                            <nav className="flex gap-3">
+                                <Link className="hover:underline" href="/">
+                                    Browse
+                                </Link>
+                                <Link
+                                    className="hover:underline"
+                                    href="/user-rooms"
+                                >
+                                    Your Rooms
+                                </Link>
+                            </nav>
+                            <AccountDropdown />
+                        </>
                     ) : (
                         <Button onClick={() => signIn()} variant="link">
                             <LogInIcon className="mr-2" /> Sign In
