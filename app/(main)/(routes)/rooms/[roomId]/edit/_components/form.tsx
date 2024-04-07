@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Room } from "@/db/schema";
 import { editRoomAction } from "../actions";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
     name: z.string().min(1).max(50),
@@ -27,6 +28,7 @@ const formSchema = z.object({
 
 export function EditRoomForm({ room }: { room: Room }) {
     const router = useRouter();
+    const { toast } = useToast();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -39,8 +41,13 @@ export function EditRoomForm({ room }: { room: Room }) {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        //TODO: invoke a server action to store the data in the database
         await editRoomAction(room.id, values);
+
+        toast({
+            title: "Room updated!",
+            description: "This room has been updated successfully",
+        });
+
         router.push("/user-rooms");
     }
 
