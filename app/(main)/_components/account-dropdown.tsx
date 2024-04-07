@@ -9,13 +9,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogInIcon, LogOutIcon } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { LogOutIcon } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 export function AccountDropdown() {
     const session = useSession();
-    const isLoggedIn = !!session.data;
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -33,17 +33,10 @@ export function AccountDropdown() {
             <DropdownMenuContent>
                 {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator /> */}
-                {isLoggedIn ? (
-                    <DropdownMenuItem onClick={() => signOut()}>
-                        <LogOutIcon className="mr-2 h-4 w-4" />
-                        Sign out
-                    </DropdownMenuItem>
-                ) : (
-                    <DropdownMenuItem onClick={() => signIn("google")}>
-                        <LogInIcon className="mr-2 h-4 w-4" />
-                        Sign in
-                    </DropdownMenuItem>
-                )}
+                <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+                    <LogOutIcon className="mr-2 h-4 w-4" />
+                    Sign out
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     );

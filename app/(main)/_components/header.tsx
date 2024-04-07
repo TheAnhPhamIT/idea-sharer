@@ -2,10 +2,11 @@
 
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { AccountDropdown } from "@/app/(main)/_components/account-dropdown";
 import Image from "next/image";
 import Link from "next/link";
+import { LogInIcon } from "lucide-react";
 
 export function Header() {
     const session = useSession();
@@ -23,7 +24,13 @@ export function Header() {
                     <span className="hidden md:block">Idea Sharer</span>
                 </Link>
                 <div className="flex gap-2 md:gap-4 items-center">
-                    <AccountDropdown />
+                    {session.data ? (
+                        <AccountDropdown />
+                    ) : (
+                        <Button onClick={() => signIn()} variant="link">
+                            <LogInIcon className="mr-2" /> Sign In
+                        </Button>
+                    )}
                     <ModeToggle />
                 </div>
             </div>
