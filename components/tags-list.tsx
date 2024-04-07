@@ -3,10 +3,11 @@
 import { useMemo } from "react";
 import { Badge } from "./ui/badge";
 import { splitWords, uniqueArray } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export function TagsList({ tags }: { tags: string | string[] }) {
     const router = useRouter();
+    const path = usePathname();
 
     const tagsList = useMemo(() => {
         if (Array.isArray(tags)) {
@@ -16,13 +17,15 @@ export function TagsList({ tags }: { tags: string | string[] }) {
         }
     }, [tags]);
 
+    console.log(path);
+
     return (
         <>
             {tagsList.map((tag) => (
                 <button
                     key={tag}
                     onClick={() => {
-                        router.push(`/?search=${tag}`);
+                        router.push(`${path}/?search=${tag}`);
                     }}
                 >
                     <Badge className="w-fit cursor-pointer">{tag}</Badge>

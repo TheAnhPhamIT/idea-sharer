@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { EraserIcon, SearchIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 const formSchema = z.object({
@@ -23,6 +23,7 @@ const formSchema = z.object({
 export function SearchBar() {
     const query = useSearchParams();
     const router = useRouter();
+    const path = usePathname();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,15 +39,15 @@ export function SearchBar() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         if (values.search) {
-            router.push(`/?search=${values.search}`);
+            router.push(`${path}/?search=${values.search}`);
         } else {
-            router.push("/");
+            router.push(`${path}`);
         }
     }
 
     function onClearSearch() {
         form.setValue("search", "");
-        router.push("/");
+        router.push(`${path}`);
     }
 
     return (

@@ -1,22 +1,22 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getUserRooms } from "@/data-access/rooms";
+import { RoomCard } from "@/components/room-card";
+import { getRooms } from "@/data-access/rooms";
 import { SearchBar } from "@/components/search-bar";
-import { UserRoomCard } from "./_components/user-room-card";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 
-export default async function UserRoomsPage({
+export default async function BrowsePage({
     searchParams,
 }: {
     searchParams: { search: string };
 }) {
-    const rooms = await getUserRooms(searchParams.search);
+    const rooms = await getRooms(searchParams.search);
 
     return (
         <main className="min-h-screen p-16 mx-auto">
             <div className="flex gap-3 justify-between">
-                <h1 className="text-xl md:text-4xl">Your Rooms</h1>
+                <h1 className="text-xl md:text-4xl">Find Rooms</h1>
                 <Button asChild>
                     <Link href="/create-room">Create Room</Link>
                 </Button>
@@ -25,12 +25,7 @@ export default async function UserRoomsPage({
             {rooms.length > 0 ? (
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     {rooms.map((room) => (
-                        <UserRoomCard
-                            key={room.id}
-                            room={room}
-                            canDelete={true}
-                            canEdit={true}
-                        />
+                        <RoomCard key={room.id} room={room} />
                     ))}
                 </div>
             ) : (
@@ -45,7 +40,7 @@ export default async function UserRoomsPage({
                     <Button asChild className="mt-6 text-xl">
                         <Link href="/create-room">
                             <Plus className="mr-2" />
-                            Create Your Room
+                            Create Room
                         </Link>
                     </Button>
                 </div>

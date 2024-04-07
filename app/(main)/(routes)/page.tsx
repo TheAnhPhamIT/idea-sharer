@@ -2,31 +2,47 @@
 // import { twMerge } from "tailwind-merge";
 
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { RoomCard } from "@/components/room-card";
-import { getRooms } from "@/data-access/rooms";
-import { SearchBar } from "@/components/search-bar";
 
-export default async function HomePage({
-    searchParams,
-}: {
-    searchParams: { search: string };
-}) {
-    const rooms = await getRooms(searchParams.search);
-
+export default async function LandingPage() {
     return (
-        <main className="min-h-screen p-16 mx-auto">
-            <div className="flex gap-3 justify-between">
-                <h1 className="text-xl md:text-4xl">Find Rooms</h1>
-                <Button asChild>
-                    <Link href="/create-room">Create Room</Link>
-                </Button>
-            </div>
-            <SearchBar />
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                {rooms.map((room) => (
-                    <RoomCard key={room.id} room={room} />
-                ))}
+        <main className="min-h-screen mx-auto relative">
+            <div className="mx-auto max-w-2xl py-12 sm:py-24 lg:py-36">
+                <div className="text-center">
+                    <Image
+                        className="inline-block"
+                        src="/icon.png"
+                        alt="logo"
+                        width={240}
+                        height={240}
+                    />
+                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-6xl">
+                        Find other awesome devs to pair with online
+                    </h1>
+                    <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-100">
+                        This platform is for sharing your screen and working
+                        with other random developers online so that you can work
+                        together
+                    </p>
+                    <div className="mt-10 flex items-center justify-center gap-x-6">
+                        <Button asChild>
+                            <Link
+                                href="/browse"
+                                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            >
+                                Get started
+                            </Link>
+                        </Button>
+                        <Button asChild variant="outline">
+                            <Link href="#">
+                                Learn more{" "}
+                                <ArrowRight className="ml-2 w-4 h-4" />
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
             </div>
         </main>
     );

@@ -11,7 +11,7 @@ import { LogInIcon } from "lucide-react";
 export function Header() {
     const session = useSession();
     return (
-        <header className="bg-gray-100 dark:bg-gray-900 py-4">
+        <header className="bg-gray-100 dark:bg-gray-900 py-4 fixed top-0 left-0 right-0 z-50">
             <div className="flex justify-between items-center container mx-auto">
                 <Link href="/" className="flex gap-2 items-center text-xl">
                     <Image
@@ -28,7 +28,10 @@ export function Header() {
                     {session.data ? (
                         <>
                             <nav className="flex gap-3">
-                                <Link className="hover:underline" href="/">
+                                <Link
+                                    className="hover:underline"
+                                    href="/browse"
+                                >
                                     Browse
                                 </Link>
                                 <Link

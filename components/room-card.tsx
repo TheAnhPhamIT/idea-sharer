@@ -44,13 +44,15 @@ export function RoomCard({
         <Card>
             <CardHeader className="relative">
                 <CardTitle>{room.name}</CardTitle>
-                <Button
-                    className="absolute top-1 right-3"
-                    variant="outline"
-                    onClick={() => router.push(`/rooms/${room.id}/edit`)}
-                >
-                    <Edit className="w-4 h-4" />
-                </Button>
+                {canEdit && (
+                    <Button
+                        className="absolute top-1 right-3"
+                        variant="outline"
+                        onClick={() => router.push(`/rooms/${room.id}/edit`)}
+                    >
+                        <Edit className="w-4 h-4" />
+                    </Button>
+                )}
                 <CardDescription className="truncate max-h-20 h-full">
                     {room.description}
                 </CardDescription>

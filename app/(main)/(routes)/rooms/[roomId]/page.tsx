@@ -16,7 +16,7 @@ export default async function RoomPage(props: { params: { roomId: string } }) {
     }
 
     return (
-        <div className="grid grid-cols-4 min-h-screen">
+        <div className="grid grid-cols-4 min-h-screen mt-28">
             <div className="col-span-3 p-4">
                 <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4">
                     <StreamVideoPlayer room={room} />

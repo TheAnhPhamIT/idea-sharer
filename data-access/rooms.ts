@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { Room, room } from "@/db/schema";
 import { getSession } from "@/lib/auth";
-import { eq, ilike, or } from "drizzle-orm";
+import { and, eq, ilike, or } from "drizzle-orm";
 import { unstable_noStore } from "next/cache";
 
 export async function getRooms(search?: string) {
@@ -14,15 +14,25 @@ export async function getRooms(search?: string) {
     });
 }
 
-export async function getUserRooms() {
+export async function getUserRooms(search?: string) {
     unstable_noStore();
     const session = await getSession();
     if (!session) {
         throw new Error("User not authorized");
     }
 
+    const where = search
+        ? and(
+              eq(room.userId, session.user.id),
+              or(
+                  ilike(room.tags, `%${search}%`),
+                  ilike(room.name, `%${search}%`)
+              )
+          )
+        : undefined;
+
     return await db.query.room.findMany({
-        where: eq(room.userId, session.user.id),
+        where,
     });
 }
 

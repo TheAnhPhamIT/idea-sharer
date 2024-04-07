@@ -8,7 +8,7 @@ export default function MainLayout({
     return (
         <>
             <Header />
-            <div className="container mx-auto">{children}</div>
+            <div className="container mx-auto mt-20">{children}</div>
         </>
     );
 }
